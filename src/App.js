@@ -1,24 +1,26 @@
-import logo from './logo.svg';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { ContextProvider } from './state';
+import SignIn from './pages/SignIn';
+import Home from './pages/Home';
+import SingleBoard from './pages/SingleBoard';
+import Profile from './pages/Profile';
+import PrivateRoute from './components/PrivateRoute';
+
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ContextProvider>
+      <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<PrivateRoute><Home /></PrivateRoute>} />
+        <Route path="/sign-in" element={<SignIn />} />
+        <Route path="/boards/:boardTitle" element={<SingleBoard />} />
+        <Route path="/boards/:boardTitle/:taskId" element={<SingleBoard />} />
+        <Route path="/profile" element={<Profile />} />
+      </Routes>
+    </BrowserRouter>
+    </ContextProvider>
   );
 }
 
